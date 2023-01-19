@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
@@ -24,8 +23,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/buttons_background"
-            android:padding="8dp"
-            android:text="دریافت سریال دستگاه"
+            android:padding="16dp"
+            android:text="@string/btn_serial"
             android:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatButton
@@ -34,37 +33,75 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:background="@drawable/buttons_background"
-            android:padding="8dp"
-            android:text="دریافت اطلاعات مکانی"
+            android:padding="16dp"
+            android:text="@string/btn_loc"
             android:textColor="@color/white" />
 
     </LinearLayout>
 
-    <TextView
-        android:id="@+id/tv_loc"
+    <LinearLayout
+        android:layout_margin="16dp"
+        android:id="@+id/linear2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:orientation="vertical"
         android:padding="8dp"
-        android:text="Loc : "
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linear"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/linear" />
+        app:layout_constraintEnd_toEndOf="parent" >
 
-    <TextView
-        android:id="@+id/tv_serial"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:padding="8dp"
-        android:text="Serial Number: "
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_loc" />
+        <TextView
+            android:background="@drawable/tv_backgrounds_white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/location"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+             />
+        <TextView
+            android:background="@drawable/tv_backgrounds_gray"
+            android:id="@+id/tv_loc_altitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/altitude"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+             />
+        <TextView
+            android:background="@drawable/tv_backgrounds_white"
+            android:id="@+id/tv_loc_longitude"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/longitude"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+             />
+
+        <TextView
+            android:background="@drawable/tv_backgrounds_gray"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:text="@string/text_serial"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+             />
+        <TextView
+            android:background="@drawable/tv_backgrounds_white"
+            android:id="@+id/tv_serial"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            android:hint="@string/hint_serial"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+             />
+
+    </LinearLayout>
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_submit"
@@ -74,12 +111,12 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:background="@drawable/buttons_background"
-        android:padding="8dp"
-        android:text="ارسال اطلاعات"
+        android:padding="16dp"
+        android:text="@string/btn_submit"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_serial" />
+        app:layout_constraintTop_toBottomOf="@id/linear2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">HamtaSharifTestProject</string>
+    <string name="btn_submit">ارسال اطلاعات</string>
+    <string name="hint_serial">0x12121212</string>
+    <string name="text_serial">Serial Number:</string>
+    <string name="longitude">Longitude :</string>
+    <string name="location">Location :</string>
+    <string name="altitude">Altitude :</string>
+    <string name="btn_loc">دریافت اطلاعات مکانی</string>
+    <string name="btn_serial">دریافت سریال دستگاه</string>
 </resources>
