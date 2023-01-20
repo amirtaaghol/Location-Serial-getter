@@ -41,6 +41,7 @@
     </LinearLayout>
 
     <LinearLayout
+
         android:layout_margin="16dp"
         android:id="@+id/linear2"
         android:layout_width="match_parent"
