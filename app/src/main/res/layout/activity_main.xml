@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F2F2F2"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -51,7 +52,7 @@
         app:layout_constraintEnd_toEndOf="parent" >
 
         <TextView
-            android:background="@drawable/tv_backgrounds_white"
+            android:background="@drawable/first_tv_backgrounds_white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="8dp"
@@ -90,7 +91,7 @@
             android:textSize="16sp"
              />
         <TextView
-            android:background="@drawable/tv_backgrounds_white"
+            android:background="@drawable/last_tv_backgrounds_white"
             android:id="@+id/tv_serial"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

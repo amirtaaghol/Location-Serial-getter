@@ -7,6 +7,7 @@ import androidx.core.app.ActivityCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
@@ -14,6 +15,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.os.Looper;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -23,6 +25,9 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationCallback;
 import com.google.android.gms.location.LocationRequest;
@@ -79,24 +84,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         if (id == R.id.btn_loc) {
             if (hasLocPermission()) {
-                if (isLocationEnabled()) {
-                    fusedLocationProviderClient.getLastLocation().addOnCompleteListener(task -> {
-                        Location location = task.getResult();
-                        if (location == null) {
-                            requestNewLocation();
-                        } else {
-                            altitude = String.valueOf(location.getAltitude());
-                            tv_loc_alt.setText("Altitude : " + altitude);
-                            longitude = String.valueOf(location.getLongitude());
-                            tv_loc_long.setText("Longitude : " + longitude);
-                        }
-                    });
-                } else {
-                    Toast.makeText(this, "Please turn on" + " your location...", Toast.LENGTH_LONG).show();
-                    Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
-                    startActivity(intent);
+                if (isGooglePlayServicesAvailable(this)) {
+                    if (isLocationEnabled()) {
+                        fusedLocationProviderClient.getLastLocation().addOnCompleteListener(task -> {
+                            Location location = task.getResult();
+                            if (location == null) {
+                                requestNewLocation();
+                            } else {
+                                altitude = String.valueOf(location.getAltitude());
+                                tv_loc_alt.setText("Altitude : " + altitude);
+                                longitude = String.valueOf(location.getLongitude());
+                                tv_loc_long.setText("Longitude : " + longitude);
+                            }
+                        });
+                    } else {
+                        Toast.makeText(this, "Please turn on" + " your location...", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(intent);
+                    }
                 }
-
             }
 
         } else if (id == R.id.btn_serial) {
@@ -127,23 +133,31 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
 
                 RequestQueue requestQueue = Volley.newRequestQueue(this);
-                String url = "http://demo.thingsboard.io:443/api/v1/G4yFFyaE295WKMa8KzZK/telemetry";
+                String url = "https://demo.thingsboard.io:443/api/v1/G4yFFyaE295WKMa8KzZK/telemetry";
 
                 JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.POST,
                         url, data, response -> {
-                            try {
-                                Toast.makeText(MainActivity.this, "response is : " + response.getString(1), Toast.LENGTH_SHORT).show();
-                            } catch (JSONException e) {
-                                e.printStackTrace();
-                            }
-                        }, error -> {
-
-                        });
+                    try {
+                        Toast.makeText(MainActivity.this, "response is : " + response.getString(1), Toast.LENGTH_SHORT).show();
+                        Log.d("Volley :", response.getString(0));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, error -> {
+                    Toast.makeText(this, "Error is :" + error.toString(), Toast.LENGTH_SHORT).show();
+                    Log.d("Volley :", error.toString());
+                });
                 requestQueue.add(jsonArrayRequest);
                 Toast.makeText(this, "داده ها با موفقیت ارسال شدند.", Toast.LENGTH_SHORT).show();
 
             }
         }
+    }
+
+    public boolean isGooglePlayServicesAvailable(Context context) {
+        GoogleApiAvailability googleApiAvailability = GoogleApiAvailability.getInstance();
+        int resultCode = googleApiAvailability.isGooglePlayServicesAvailable(context);
+        return resultCode == ConnectionResult.SUCCESS;
     }
 
 
